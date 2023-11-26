@@ -12,13 +12,14 @@ def get_words() -> list:
 
 def get_same_count(word: str, letter: str, ignore: str = None) -> int:
     """Получаем количество повторений letter в word."""
-    count = 0 
+    count = 0
     for item in word:
-        if item == ignore:
-            continue
+        if ignore:
+            if item == ignore:
+                continue
 
         if item == letter:
-            count =+ 1
+            count += 1
     
     return count
 
@@ -112,11 +113,18 @@ def main() -> None:
             elif {"letter": item, "amount": copies} in exists_list:
                 pass
             else:
-                if item in not_exists_list:
-                    not_exists_list.remove(item)
-                    exists_list.append({"letter": item, "amount": copies})
-                else:
-                    exists_list.append(item)
+                break_else = False
+                for i in range(10):
+                    if {"letter": item, "amount": i} in exists_list:
+                        break_else = True
+                        break
+
+                if break_else == False:
+                    if item in not_exists_list:
+                        not_exists_list.remove(item)
+                        exists_list.append({"letter": item, "amount": copies})
+                    else:
+                        exists_list.append(item)
 
         print(f"[INFO] Список существующих букв: {exists_list}")
 
