@@ -56,6 +56,7 @@ def main() -> None:
     exists_list = []
     words_used_list = []
     known_positions = {}
+    bad_positions_D = {}
 
     print('[INFO] Запускаю поиск...')
     count = 0
@@ -142,6 +143,23 @@ def main() -> None:
 
         print(f"[INFO] Список позиций букв: {known_positions}")
 
+        bad_positions = input("Введите не верное расположение букв в слове (буквы есть в слове, но не на позиции) (пример: __бу_): ")
+        if not bad_positions or bad_positions == "\n" or bad_positions == " ":
+            bad_positions = ''
+
+        bad_positions = bad_positions.lower()
+
+        for val, item in enumerate(bad_positions):
+            if item == "_":
+                continue
+
+            if not bad_positions_D.get(val):
+                bad_positions_D[val] = [item]
+            else:
+                bad_positions_D[val].append(item)
+
+        print(f"[INFO] Список позиций букв: {known_positions}")
+
         bar = progressbar.ProgressBar(
             max_value=len(words))
         amount = 0
@@ -176,6 +194,16 @@ def main() -> None:
             if skip_word:
                 # if word == "оазис":
                 #     print("4")
+                continue
+
+            skip_word = False
+            for val, letter in enumerate(word):
+                if bad_positions_D.get(val):
+                    if letter in bad_positions_D.get(val):
+                        skip_word = True
+                        break
+
+            if skip_word:
                 continue
 
             # Проверка на уже введенные слова
