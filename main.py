@@ -23,6 +23,28 @@ def get_same_count(word: str, letter: str, ignore: str = None) -> int:
     
     return count
 
+def input_for_length(text: str, max_length: int = 5, check_int: bool = False, check_empty: bool = False):
+    while True:
+        answer = input(text)
+
+        if check_empty == True:
+            if not answer or answer == "\n" or answer == " ":
+                print("[ERROR] Вы ничего не ввели!")
+                continue
+
+        if check_int == True:
+            try:
+                answer = int(answer)
+            except:
+                print("[ERROR] Похоже это не число!")
+                continue
+
+        if len(answer) > max_length:
+                print("[ERROR] Похоже ваш ответ превышает длину в 5 символов!")
+                continue
+
+        return answer
+
 def main() -> None:
     if not os.path.exists("words.txt"): # Проверка на наличие словаря
         print("[ERROR] No file words.txt found!")
@@ -66,13 +88,15 @@ def main() -> None:
             print("[INFO] У вас закончились попытки!")
             break
 
-        word_used = input(f"[{count}] Введите введенное слово: ")
+        # word_used = input(f"[{count}] Введите введенное слово: ")
+        word_used = input_for_length(text=f"[{count}] Введите введенное слово: ", max_length=5, check_int=False, check_empty=True)
         word_used = word_used.lower()
         if word_used not in words_used_list:
             words_used_list.append(word_used)
         print(f"[INFO] Список введенных слов: {words_used_list}")
 
-        not_exists = input("Введите буквы, которых точно нет в слове (пр. хут_р): ")
+        # not_exists = input("Введите буквы, которых точно нет в слове (пр. хут_р): ")
+        not_exists = input_for_length(text="Введите буквы, которых точно нет в слове (пр. хут_р): ", max_length=5, check_int=False, check_empty=False)
         if not not_exists or not_exists == "\n" or not_exists == " ":
             not_exists = ''
 
@@ -94,7 +118,8 @@ def main() -> None:
 
         print(f"[INFO] Список не существующих букв: {not_exists_list}")
         
-        exists = input("Введите буквы, которые точно есть в слове (пр. ___о_): ")
+        # exists = input("Введите буквы, которые точно есть в слове (пр. ___о_): ")
+        exists = input_for_length(text="Введите буквы, которые точно есть в слове (пр. ___о_): ", max_length=5, check_int=False, check_empty=False)
         if not exists or exists == "\n" or exists == " ":
             exists = ''
 
@@ -129,7 +154,8 @@ def main() -> None:
 
         print(f"[INFO] Список существующих букв: {exists_list}")
 
-        positions = input("Введите расположение букв в слове (пример: ор__з): ")
+        # positions = input("Введите расположение букв в слове (пример: ор__з): ")
+        positions = input_for_length(text="Введите расположение букв в слове (пример: ор__з): ", max_length=5, check_int=False, check_empty=False)
         if not positions or positions == "\n" or positions == " ":
             positions = ''
 
@@ -143,7 +169,8 @@ def main() -> None:
 
         print(f"[INFO] Список позиций букв: {known_positions}")
 
-        bad_positions = input("Введите не верное расположение букв в слове (буквы есть в слове, но не на позиции) (пример: __бу_): ")
+        # bad_positions = input("Введите не верное расположение букв в слове (буквы есть в слове, но не на позиции) (пример: __бу_): ")
+        bad_positions = input_for_length(text="Введите не верное расположение букв в слове (буквы есть в слове, но не на позиции) (пример: __бу_): ", max_length=5, check_int=False, check_empty=False)
         if not bad_positions or bad_positions == "\n" or bad_positions == " ":
             bad_positions = ''
 
