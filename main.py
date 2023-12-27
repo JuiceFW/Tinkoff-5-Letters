@@ -185,7 +185,7 @@ def main() -> None:
             else:
                 bad_positions_D[val].append(item)
 
-        print(f"[INFO] Список позиций букв: {bad_positions_D}")
+        print(f"[INFO] Список неправильных позиций букв: {bad_positions_D}")
 
         bar = progressbar.ProgressBar(
             max_value=len(words))
