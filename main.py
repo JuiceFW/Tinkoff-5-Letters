@@ -23,7 +23,7 @@ def get_same_count(word: str, letter: str, ignore: str = None) -> int:
     
     return count
 
-def input_for_length(text: str, max_length: int = 5, min_length: int = 0, check_int: bool = False, check_empty: bool = False):
+def input_for_length(text: str, max_length: int = 5, min_length: int = 0, check_int: bool = False, check_empty: bool = False, min_or_not: bool = False):
     while True:
         answer = input(text)
 
@@ -43,7 +43,7 @@ def input_for_length(text: str, max_length: int = 5, min_length: int = 0, check_
             print("[ERROR] Похоже ваш ответ превышает длину в 5 символов!")
             continue
 
-        if len(answer) < min_length:
+        if len(answer) < min_length and min_or_not == False:
             print("[ERROR] Похоже ваш ответ не состоит из 5 символов!")
             continue
 
@@ -100,7 +100,7 @@ def main() -> None:
         print(f"[INFO] Список введенных слов: {words_used_list}")
 
         # exists = input("Введите буквы, которые точно есть в слове (пр. ___о_): ")
-        exists = input_for_length(text="Введите буквы, которые точно есть в слове (пр. ___о_): ", max_length=5, check_int=False, check_empty=False)
+        exists = input_for_length(text="Введите буквы, которые точно есть в слове (пр. ___о_): ", max_length=5, min_length=5, check_int=False, check_empty=False, min_or_not = True)
         if not exists or exists == "\n" or exists == " ":
             exists = ''
 
@@ -146,7 +146,7 @@ def main() -> None:
         # not_exists = not_exists.lower()
 
         for val, item in enumerate(word_used):
-            if exists[val] == "_":
+            if not exists:
                 if item not in not_exists_list:
                     if item in exists_list:
                         exists_list.remove(item)
@@ -156,11 +156,22 @@ def main() -> None:
                     else:
                         not_exists_list.append(item)
                     # not_exists_list.append(item)
+            else:
+                if exists[val] == "_":
+                    if item not in not_exists_list:
+                        if item in exists_list:
+                            exists_list.remove(item)
+                            exists_list.append({"letter": item, "amount": 1})
+                        elif {"letter": item, "amount": 1} in exists_list:
+                            pass
+                        else:
+                            not_exists_list.append(item)
+                        # not_exists_list.append(item)
 
         print(f"[INFO] Список не существующих букв: {not_exists_list}")
 
         # positions = input("Введите расположение букв в слове (пример: ор__з): ")
-        positions = input_for_length(text="Введите расположение букв в слове (пример: ор__з): ", max_length=5, check_int=False, check_empty=False)
+        positions = input_for_length(text="Введите расположение букв в слове (пример: ор__з): ", max_length=5, min_length=5, check_int=False, check_empty=False, min_or_not=True)
         if not positions or positions == "\n" or positions == " ":
             positions = ''
 
