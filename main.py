@@ -43,7 +43,12 @@ def input_for_length(text: str, max_length: int = 5, min_length: int = 0, check_
             print("[ERROR] Похоже ваш ответ превышает длину в 5 символов!")
             continue
 
-        if len(answer) < min_length and min_or_not == False:
+        if not answer and min_or_not == False:
+            print("[ERROR] Похоже ваш ответ не состоит из 5 символов!")
+            continue
+        elif not answer and min_or_not == True:
+            pass
+        elif len(answer) < min_length:
             print("[ERROR] Похоже ваш ответ не состоит из 5 символов!")
             continue
 
