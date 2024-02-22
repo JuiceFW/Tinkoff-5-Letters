@@ -176,20 +176,22 @@ def main() -> None:
         print(f"[INFO] Список не существующих букв: {not_exists_list}")
 
         # positions = input("Введите расположение букв в слове (пример: ор__з): ")
-        positions = input_for_length(text="Введите расположение букв в слове (пример: ор__з): ", max_length=5, min_length=5, check_int=False, check_empty=False, min_or_not=True)
-        if not positions or positions == "\n" or positions == " ":
-            positions = ''
-
-        positions = positions.lower()
-
         bad_pos_word_ex = word_example
+        if exists:
+            positions = input_for_length(text="Введите расположение букв в слове (пример: ор__з): ", max_length=5, min_length=5, check_int=False, check_empty=False, min_or_not=True)
+            if not positions or positions == "\n" or positions == " ":
+                positions = ''
 
-        for val, item in enumerate(positions):
-            if item == "_":
-                continue
+            positions = positions.lower()
 
-            known_positions[val] = item
-            bad_pos_word_ex = bad_pos_word_ex[:val] + "_" + bad_pos_word_ex[val+1:]
+            for val, item in enumerate(positions):
+                if item == "_":
+                    continue
+
+                known_positions[val] = item
+                bad_pos_word_ex = bad_pos_word_ex[:val] + "_" + bad_pos_word_ex[val+1:]
+        else:
+            positions = ''
 
         print(f"[INFO] Список позиций букв: {known_positions}")
 
