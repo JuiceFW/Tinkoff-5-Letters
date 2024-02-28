@@ -93,9 +93,9 @@ def main() -> None:
     count = 0
     while True:
         count += 1
-        if count == 6: # Максимальное кол-во строчек для слов в самом приложении.
-            print("[INFO] У вас закончились попытки!")
-            break
+        # if count == 6: # Максимальное кол-во строчек для слов в самом приложении.
+        #     print("[INFO] У вас закончились попытки!")
+        #     break
 
         # word_used = input(f"[{count}] Введите введенное слово: ")
         word_used = input_for_length(text=f"[{count}] Введите введенное слово: ", max_length=5, min_length=5, check_int=False, check_empty=True)
