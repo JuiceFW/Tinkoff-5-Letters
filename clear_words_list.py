@@ -27,6 +27,9 @@ def main() -> None:
         if len(item) != 5:
             continue
 
+        if "-" in item:
+            continue
+
         new_words.append(item)
 
     words = new_words.copy()
