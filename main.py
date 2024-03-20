@@ -20,7 +20,7 @@ def get_same_count(word: str, letter: str, ignore: str = None) -> int:
 
         if item == letter:
             count += 1
-    
+
     return count
 
 def input_for_length(text: str, max_length: int = 5, min_length: int = 0, check_int: bool = False, check_empty: bool = False, min_or_not: bool = False):
@@ -245,8 +245,6 @@ def main() -> None:
                         skip_word = True
                         break
             if skip_word:
-                # if word == "оазис":
-                #     print("4")
                 continue
 
             skip_word = False
@@ -265,10 +263,8 @@ def main() -> None:
                 if str(item).lower() == word:
                     skip_word = True
                     break
-                
+
             if skip_word:
-                # if word == "оазис":
-                #     print('1')
                 continue
 
             # Проверка на не существующие буквы в слове
@@ -277,10 +273,8 @@ def main() -> None:
                 if item in word:
                     skip_word = True
                     break
-                
+
             if skip_word:
-                # if word == "оазис":
-                #     print('2')
                 continue
 
             # Проверка на существующие буквы в слове
@@ -295,7 +289,7 @@ def main() -> None:
                         skip_word = True
                         break
                     else:
-                        if words_repeat_count.get(item.get("letter")) > item.get("amount"):
+                        if words_repeat_count.get(item.get("letter")) < item.get("amount"): # maybe > too
                             skip_word = True
                             break
                 else:
@@ -305,7 +299,7 @@ def main() -> None:
                 # if word == "оазис": # Это было добавлено для проверок на совпадение слов и поиска причины отклонения слова.
                 #     print('3')
                 continue
-            
+
             matched_words.append(word)
 
         bar.finish()
