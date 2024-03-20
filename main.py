@@ -1,5 +1,5 @@
-import os
 import progressbar
+import os
 
 # Меняем директорию на директорию со скриптом.
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -75,7 +75,7 @@ def main() -> None:
         new_words.append(item)
 
     words = new_words.copy()
-    new_words = None
+    new_words = []
 
     if not words:
         print("[ERROR] Не найдены слова в 5 символов!")
