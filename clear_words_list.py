@@ -30,6 +30,8 @@ def main() -> None:
         if "-" in item:
             continue
 
+        item = item.replace("ё", "е")
+
         new_words.append(item)
 
     words = new_words.copy()
