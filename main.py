@@ -1,3 +1,4 @@
+from typing import Union
 import progressbar
 import os
 
@@ -10,7 +11,7 @@ def get_words() -> list:
     with open("words.txt", encoding='utf-8') as file:
         return file.read().splitlines()
 
-def get_same_count(word: str, letter: str, ignore: str = None) -> int:
+def get_same_count(word: str, letter: str, ignore: Union[str, None] = None) -> int:
     """Получаем количество повторений letter в word."""
     count = 0
     for item in word:
@@ -118,14 +119,17 @@ def main() -> None:
             if item == "_":
                 continue
 
-            copies = get_same_count(exists, item, "_")
+            copies_exists = get_same_count(exists, item, "_")
+            copies_word = get_same_count(word_used, item, "_")
+
             if item in exists_list:
-                if copies > 1:
+                if copies_exists > 1:
                     exists_list.remove(item)
-                    exists_list.append({"letter": item, "amount": copies})
-                else:
-                    pass
-            elif {"letter": item, "amount": copies} in exists_list:
+                    exists_list.append({"letter": item, "amount": copies_exists})
+                elif copies_exists == 1 and copies_word > 1:
+                    exists_list.remove(item)
+                    exists_list.append({"letter": item, "amount": copies_exists})
+            elif {"letter": item, "amount": copies_exists} in exists_list:
                 pass
             else:
                 break_else = False
@@ -137,9 +141,12 @@ def main() -> None:
                 if break_else == False:
                     if item in not_exists_list:
                         not_exists_list.remove(item)
-                        exists_list.append({"letter": item, "amount": copies})
+                        exists_list.append({"letter": item, "amount": copies_exists})
                     else:
-                        exists_list.append(item)
+                        if copies_exists == 1 and copies_word > 1:
+                            exists_list.append({"letter": item, "amount": copies_exists})
+                        else:
+                            exists_list.append(item)
 
         print(f"[INFO] Список существующих букв: {exists_list}")
 
@@ -289,7 +296,7 @@ def main() -> None:
                         skip_word = True
                         break
                     else:
-                        if words_repeat_count.get(item.get("letter")) < item.get("amount"): # maybe > too
+                        if words_repeat_count.get(item.get("letter")) != item.get("amount"): # maybe >/!=
                             skip_word = True
                             break
                 else:
