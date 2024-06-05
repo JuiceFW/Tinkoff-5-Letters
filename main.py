@@ -1,15 +1,19 @@
 from typing import Union
-import progressbar
 import os
+
+import progressbar
+
 
 # Меняем директорию на директорию со скриптом.
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 os.chdir(BASE_DIR)
 
+
 def get_words() -> list:
     """Получаем все слова из файла words.txt"""
     with open("words.txt", encoding='utf-8') as file:
         return file.read().splitlines()
+
 
 def get_same_count(word: str, letter: str, ignore: Union[str, None] = None) -> int:
     """Получаем количество повторений letter в word."""
@@ -23,6 +27,7 @@ def get_same_count(word: str, letter: str, ignore: Union[str, None] = None) -> i
             count += 1
 
     return count
+
 
 def input_for_length(text: str, max_length: int = 5, min_length: int = 0, check_int: bool = False, check_empty: bool = False, min_or_not: bool = False):
     while True:
@@ -54,6 +59,7 @@ def input_for_length(text: str, max_length: int = 5, min_length: int = 0, check_
             continue
 
         return answer
+
 
 def main() -> None:
     if not os.path.exists("words.txt"): # Проверка на наличие словаря
@@ -320,6 +326,7 @@ def main() -> None:
         words = matched_words.copy()
 
         print("\n")
+
 
 if __name__ == "__main__":
     main()
